@@ -23,6 +23,12 @@ export const useGameState = () => {
       }));
     }, 5000);
     
+    // Также сохраняем при каждом изменении состояния
+    localStorage.setItem('energyClickerState', JSON.stringify({
+      ...gameState,
+      lastSaved: Date.now()
+    }));
+    
     return () => clearInterval(saveInterval);
   }, [gameState]);
   
@@ -63,7 +69,7 @@ export const useGameState = () => {
       ...prev,
       energy: prev.energy + prev.energyPerClick
     }));
-  }, []);
+  }, [gameState.energyPerClick]); // Добавил зависимость от energyPerClick
   
   const buyUpgrade = useCallback((upgradeId: string) => {
     const upgrade = UPGRADES.find(u => u.id === upgradeId);
@@ -77,7 +83,8 @@ export const useGameState = () => {
         const newLevel = (prev.upgrades[upgradeId] || 0) + 1;
         const newState = { ...prev };
         
-        newState.energy -= price;
+        // Вычитаем только цену улучшения, а не всю энергию
+        newState.energy = prev.energy - price;
         newState.upgrades[upgradeId] = newLevel;
         
         if (upgrade.effectType === 'perClick') {

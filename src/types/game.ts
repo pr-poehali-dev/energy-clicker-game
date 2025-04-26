@@ -1,63 +1,63 @@
-export interface GameState {
-  energy: number;
-  energyPerClick: number;
-  energyPerSecond: number;
-  lastSaved: number;
-  upgrades: Record<string, number>;
-}
-
-export interface Upgrade {
+export interface GameUpgrade {
   id: string;
   name: string;
   description: string;
   basePrice: number;
+  priceMultiplier: number;
   baseEffect: number;
   effectType: 'perClick' | 'perSecond';
   icon: string;
 }
 
-export const UPGRADES: Upgrade[] = [
-  {
-    id: 'click-power',
-    name: 'Мощный клик',
-    description: 'Увеличивает энергию за клик',
-    basePrice: 10,
-    baseEffect: 1,
-    effectType: 'perClick',
-    icon: '👆'
-  },
-  {
-    id: 'auto-clicker',
-    name: 'Авто-кликер',
-    description: 'Автоматически добавляет энергию',
-    basePrice: 50,
-    baseEffect: 1,
-    effectType: 'perSecond',
-    icon: '⚡'
-  },
-  {
-    id: 'energy-boost',
-    name: 'Энергетический буст',
-    description: 'Значительно увеличивает энергию за клик',
-    basePrice: 200,
-    baseEffect: 5,
-    effectType: 'perClick',
-    icon: '🔋'
-  }
-];
-
-export const calculateUpgradePrice = (upgrade: Upgrade, level: number): number => {
-  return Math.floor(upgrade.basePrice * Math.pow(1.15, level));
-};
+export interface GameState {
+  energy: number;
+  energyPerClick: number;
+  energyPerSecond: number;
+  upgrades: Record<string, number>;
+  lastSaved: number;
+}
 
 export const INITIAL_STATE: GameState = {
   energy: 0,
   energyPerClick: 1,
   energyPerSecond: 0,
-  lastSaved: Date.now(),
-  upgrades: {
-    'click-power': 0,
-    'auto-clicker': 0,
-    'energy-boost': 0
-  }
+  upgrades: {},
+  lastSaved: Date.now()
 };
+
+export const UPGRADES: GameUpgrade[] = [
+  {
+    id: 'clickPower',
+    name: 'Сила клика',
+    description: 'Увеличивает количество энергии за один клик',
+    basePrice: 10,
+    priceMultiplier: 1.5,
+    baseEffect: 1,
+    effectType: 'perClick',
+    icon: '👆'
+  },
+  {
+    id: 'autoClick',
+    name: 'Автоклик',
+    description: 'Автоматически добавляет энергию каждую секунду',
+    basePrice: 25,
+    priceMultiplier: 1.8,
+    baseEffect: 1,
+    effectType: 'perSecond',
+    icon: '⏱️'
+  },
+  {
+    id: 'megaClick',
+    name: 'Мегаклик',
+    description: 'Значительно увеличивает количество энергии за клик',
+    basePrice: 100,
+    priceMultiplier: 2,
+    baseEffect: 5,
+    effectType: 'perClick',
+    icon: '💥'
+  }
+];
+
+export function calculateUpgradePrice(upgrade: GameUpgrade, level: number): number {
+  return Math.floor(upgrade.basePrice * Math.pow(upgrade.priceMultiplier, level));
+}

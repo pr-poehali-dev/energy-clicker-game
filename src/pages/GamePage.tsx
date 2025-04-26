@@ -23,7 +23,11 @@ const GamePage: React.FC = () => {
         </div>
         
         <div className="flex-1 flex flex-col items-center justify-center gap-6 py-6">
-          <CanCounter energy={gameState.energy} onClick={addEnergy} />
+          <CanCounter 
+            energy={gameState.energy} 
+            energyPerClick={gameState.energyPerClick}
+            onClick={addEnergy} 
+          />
         </div>
         
         <StatsCard gameState={gameState} />

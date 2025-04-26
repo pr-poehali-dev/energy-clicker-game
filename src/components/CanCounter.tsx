@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 
 interface CanCounterProps {
   energy: number;
+  energyPerClick: number;
   onClick: () => void;
 }
 
-export const CanCounter: React.FC<CanCounterProps> = ({ energy, onClick }) => {
+export const CanCounter: React.FC<CanCounterProps> = ({ energy, energyPerClick, onClick }) => {
   const [animations, setAnimations] = useState<{id: number, x: number, y: number}[]>([]);
   
   const handleClick = (e: React.MouseEvent) => {
@@ -41,7 +42,7 @@ export const CanCounter: React.FC<CanCounterProps> = ({ energy, onClick }) => {
         className="relative cursor-pointer transition-transform hover:scale-105 active:scale-95"
         onClick={handleClick}
       >
-        {/* Анимации +1 */}
+        {/* Анимации прибавления энергии */}
         {animations.map(anim => (
           <div 
             key={anim.id}
@@ -51,7 +52,7 @@ export const CanCounter: React.FC<CanCounterProps> = ({ energy, onClick }) => {
               top: `${anim.y}px`
             }}
           >
-            +1
+            +{energyPerClick}
           </div>
         ))}
         
