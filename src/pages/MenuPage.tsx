@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, Settings, ShoppingBag } from 'lucide-react';
 import ShopItem from '@/components/ShopItem';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,14 @@ import { BadgeGreen } from '@/components/ui/badge-green';
 const MenuPage: React.FC = () => {
   const { gameState, buyUpgrade, resetGame } = useGameState();
   const [activeTab, setActiveTab] = useState('shop');
+  const location = useLocation();
+  
+  // Проверяем, есть ли в state значение activeTab
+  useEffect(() => {
+    if (location.state && location.state.activeTab) {
+      setActiveTab(location.state.activeTab);
+    }
+  }, [location.state]);
   
   return (
     <div className="flex min-h-screen flex-col">

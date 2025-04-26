@@ -55,6 +55,46 @@ export const UPGRADES: GameUpgrade[] = [
     baseEffect: 5,
     effectType: 'perClick',
     icon: '💥'
+  },
+  {
+    id: 'turboBoost',
+    name: 'Турбо буст',
+    description: 'Мощный автоматический генератор энергии',
+    basePrice: 250,
+    priceMultiplier: 2.2,
+    baseEffect: 5,
+    effectType: 'perSecond',
+    icon: '🚀'
+  },
+  {
+    id: 'doubleTap',
+    name: 'Двойной тап',
+    description: 'Удваивает эффективность каждого клика',
+    basePrice: 500,
+    priceMultiplier: 2.5,
+    baseEffect: 10,
+    effectType: 'perClick',
+    icon: '✌️'
+  },
+  {
+    id: 'energyFactory',
+    name: 'Энергофабрика',
+    description: 'Создает постоянный поток энергии без остановки',
+    basePrice: 1000,
+    priceMultiplier: 3,
+    baseEffect: 15,
+    effectType: 'perSecond',
+    icon: '🏭'
+  },
+  {
+    id: 'powerStrike',
+    name: 'Силовой удар',
+    description: 'Мощнейший бонус к энергии за клик',
+    basePrice: 2500,
+    priceMultiplier: 3.5,
+    baseEffect: 50,
+    effectType: 'perClick',
+    icon: '⚡'
   }
 ];
 
