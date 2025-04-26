@@ -39,7 +39,7 @@ const MenuPage: React.FC = () => {
             </div>
           </div>
           <BadgeGreen className="ml-auto">
-            Никогда не истекает
+            tg: @origcrime
           </BadgeGreen>
         </div>
         
